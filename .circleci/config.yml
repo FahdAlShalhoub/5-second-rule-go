@@ -32,6 +32,16 @@ jobs:
             gotestsum --junitfile /tmp/test-reports/unit-tests.xml
       - store_test_results:
           path: /tmp/test-reports
+  deploy:
+    docker:
+      - image: circleci/golang:1.15.8
+    steps:
+      - checkout
+      - run:
+          name: Deploy Fly
+          command: |
+            wget -qO- 'https://getfly.fly.dev/linux-x86-64/flyctl.tgz' | tar xz
+            ./flyctl deploy -t $FLY_AUTH_TOKEN 
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/configuration-reference/#workflows
@@ -40,3 +50,4 @@ workflows:
     # Inside the workflow, you define the jobs you want to run.
     jobs:
       - build
+      - deploy
