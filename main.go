@@ -18,7 +18,10 @@ func main() {
 	}
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		json.NewEncoder(w).Encode(response{Message: "Hello World"})
+		err := json.NewEncoder(w).Encode(response{Message: "Hello World"})
+		if err != nil {
+			return
+		}
 	})
 
 	log.Println("listening on", port)
