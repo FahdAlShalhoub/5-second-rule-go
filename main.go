@@ -20,7 +20,7 @@ func main() {
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
 
-		err := json.NewEncoder(w).Encode(response{Message: "Hello Obadah"})
+		err := json.NewEncoder(w).Encode(response{Message: "Hello Not Obadah"})
 		if err != nil {
 			return
 		}
